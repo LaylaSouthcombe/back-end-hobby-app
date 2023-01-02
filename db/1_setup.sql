@@ -5,7 +5,8 @@ CREATE TABLE users (
     first_name varchar(50) NOT NULL,
     second_name varchar(50) NOT NULL,
     password_digest varchar NOT NULL,
-    email varchar(200) NOT NULL
+    email varchar(200) NOT NULL,
+    last_login date DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS listings;

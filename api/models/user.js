@@ -7,6 +7,7 @@ class User {
         this.second_name = data.second_name
         this.password_digest = data.password_digest
         this.email = data.email
+        this.last_login = data.last_login
     }
 
     static get all() {
