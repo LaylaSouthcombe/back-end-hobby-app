@@ -1,14 +1,10 @@
-
-INSERT INTO owners (name, address) 
+INSERT INTO users (name, age, owner_id) 
 VALUES
-    ('Beth', 'South Pavillion' ),
-    ('Naz', '1 The Strand' );
+    ('Layla', 'Southcombe', 'xxxx', 'laylasouthcombe789@outlook.com' ),
+    ('Bob', 'Belcher', 'xxxx', 'bobbelcher3424234@gmail.com' ),
+    ('Gene', 'Belcher', 'xxxx', 'genebelcher12234234@gmail.com' );
 
-INSERT INTO dogs (name, age, owner_id) 
+INSERT INTO listings (name, address) 
 VALUES
-    ('Snoopy', 5, null ),
-    ('Mochi', 3, 2 ),
-    ('Masha', 5, null ),
-    ('Hendon', 2, 2 ),
-    ('Zola', 13, 1 ),
-    ('Snip', 3, null);
+    ('Paragliding set', 'Cool paragliding set, everything you need', 100.00, true, 12, 1, 1, 'Available'),
+    ('Skateboarding set', 'Cool skateboarding set, everything you need', 150.00, false, 13, 2, 2, 'Sold');

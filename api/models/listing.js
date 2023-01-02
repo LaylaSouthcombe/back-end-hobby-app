@@ -1,9 +1,9 @@
 const db = require ('../dbConfig/init')
 
-const Dog = require("./dog")
+const User = require("./user")
 
 
-class Owner {
+class Listing {
     constructor(data){
         this.id = data.id
         this.name = data.name
@@ -13,11 +13,11 @@ class Owner {
     static findById (id) {
         return new Promise (async (resolve, reject) => {
             try {
-                let ownerData = await db.query(`SELECT * FROM owners WHERE id = $1;`, [ id ]); 
-                let owner = new Owner(ownerData.rows[0]);
-                resolve (owner);
+                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+                let listing = new Listing(listingData.rows[0]);
+                resolve (listing);
             } catch (err) {
-                reject('Owner not found');
+                reject('Listing not found');
             }
         });
     }
@@ -25,15 +25,15 @@ class Owner {
     get dogs(){
         return new Promise (async (resolve, reject) => {
             try {
-                const dogsData = await db.query(`SELECT * FROM dogs WHERE owner_id = $1;`, [ this.id ]);
+                const dogsData = await db.query(`SELECT * FROM dogs WHERE listing_id = $1;`, [ this.id ]);
                 const dogs = dogsData.rows.map(d => new Dog(d));
                 resolve(dogs);
             } catch (err) {
-                reject("Owner's dogs could not be found");
+                reject("Listing's dogs could not be found");
             };
         });
     };
 
 }
 
-module.exports = Owner;
+module.exports = Listing;
