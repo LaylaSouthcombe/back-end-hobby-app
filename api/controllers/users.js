@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
 // Create user route
 router.post('/', async (req, res) => {
     try {
-        const user = await User.create(req.body.name, req.body.age)
+        const user = await User.create(req.body)
         res.json(user)
     } catch(err) {
         res.status(404).json({err})
@@ -36,8 +36,7 @@ router.post('/', async (req, res) => {
 // users update route
 router.patch('/:id', async (req, res) => {
     try {
-        const user = await User.findById(parseInt(req.params.id))
-        const updatedUser = await user.update(req.body.name, req.body.age)
+        const updatedUser = await User.update(parseInt(req.params.id), req.body)
         res.json({user: updatedUser})
     } catch(err) {
         res.status(500).json({err})
