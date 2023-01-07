@@ -1,6 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-
 const Listing = require('../models/listing')
 
 // listings show route
