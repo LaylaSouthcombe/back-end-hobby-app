@@ -5,8 +5,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-const userRoutes = require('./controllers/users')
-const listingRoutes = require('./controllers/listings')
+const userRoutes = require('./routes/users')
+const listingRoutes = require('./routes/listings')
 
 server.use('/users', userRoutes)
 server.use('/listings', listingRoutes)
