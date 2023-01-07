@@ -7,7 +7,7 @@ const Listing = require('../models/listing')
 async function showListing(req, res) {
     try {
         const listing = await Listing.findById(parseInt(req.params.id))
-        res.json(listing)
+        res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
     }
