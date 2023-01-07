@@ -70,6 +70,18 @@ class User {
         });
     }
 
+    static async updateLoginDate(userId){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let todaysDate = new Date()
+                let result = await db.query(`UPDATE users SET last_login = $1 WHERE id = $2 RETURNING *;`, [ todaysDate, userId])
+                resolve(result.rows[0].last_login)
+            }catch(err){
+                reject("Error updating users last_login");
+            }
+        })
+    }
+
     destroy(){
         return new Promise(async(resolve, reject) => {
             try {
