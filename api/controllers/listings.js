@@ -4,14 +4,14 @@ const router = express.Router();
 const Listing = require('../models/listing')
 
 // listings show route
-router.get('/:id', async (req, res) => {
+async function showListing(req, res) {
     try {
         const listing = await Listing.findById(parseInt(req.params.id))
         res.json(listing)
     } catch (err) {
         res.status(400).send({err})
     }
-})
+}
 
 // listings dogs route
 // router.get('/:id/users', async (req, res) => {
@@ -26,4 +26,4 @@ router.get('/:id', async (req, res) => {
 //     }
 // })
 
-module.exports = router;
+module.exports = {showListing};

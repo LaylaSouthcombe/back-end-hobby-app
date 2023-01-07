@@ -6,5 +6,5 @@ VALUES
 
 INSERT INTO listings (name, address) 
 VALUES
-    ('Paragliding set', 'Cool paragliding set, everything you need', 100.00, true, 12, 1, 1, 'Available', 'Not available', 'Not available', 'Available', '1, 2', 'London, United Kingdom'),
-    ('Skateboarding set', 'Cool skateboarding set, everything you need', 150.00, false, 13, 2, 2, 'Sold', 'Available', 'Not available', 'Not available', '2, 3', 'Hull, United Kingdom');
+    ('Paragliding set', 'Cool paragliding set, everything you need', 100.00, true, 12, 1, 1, '12:12:2022', 'Available', 'Not available', 'Not available', 'Available', '1, 2', 'London, United Kingdom'),
+    ('Skateboarding set', 'Cool skateboarding set, everything you need', 150.00, false, 13, 2, 2, '14:12:2022', 'Sold', 'Available', 'Not available', 'Not available', '2, 3', 'Hull, United Kingdom');
