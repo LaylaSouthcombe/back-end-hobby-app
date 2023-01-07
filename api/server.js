@@ -11,7 +11,7 @@ const listingRoutes = require('./controllers/listings')
 server.use('/users', userRoutes)
 server.use('/listings', listingRoutes)
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 // Root route
 server.get('/', (req, res) => res.send('Hello, world!'))
