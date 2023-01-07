@@ -1,18 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User')
 
-
-async function hi(req, res) { 
-    try {
-        console.log("hi")
-        res.status(201).json({msg: 'hi'});
-
-    } catch(err) {
-        res.status(500).json({err: "This email "});
-    }
-}
-    
-
 async function registerUser(req, res) { 
     try {
         console.log("req.body")
@@ -53,4 +41,4 @@ async function loginUser (req, res) {
     }
 }
 
-module.exports = {registerUser, loginUser, hi}
+module.exports = {registerUser, loginUser}
