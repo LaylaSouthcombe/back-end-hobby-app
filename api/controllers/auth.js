@@ -1,10 +1,13 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User')
 
-async function registerUser (req, res) { 
+async function registerUser(req, res) { 
     try {
+        console.log("req.body")
         const users = await User.findUsersByEmail(req.body.email)
+        console.log(users)
         if(!users.length){
+            console.log(req.body)
             const salt = await bcrypt.genSalt();
             const hashed = await bcrypt.hash(req.body.password, salt);
             console.log(hashed)

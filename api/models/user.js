@@ -5,7 +5,7 @@ class User {
         this.id = data.id
         this.first_name = data.first_name
         this.second_name = data.second_name
-        this.password_digest = data.password_digest
+        this.password_digest = data.password
         this.email = data.email
         this.last_login = data.last_login
     }
@@ -34,17 +34,17 @@ class User {
         });
     }
 
-    // static findByOwner (id) {
-    //     return new Promise (async (resolve, reject) => {
-    //         try {
-    //             let usersData = await db.query(`SELECT * FROM users WHERE ownerId = $1;`, [ id ]);
-    //             const users = usersData.rows.map(d => new User(d))
-    //             resolve (users);
-    //         } catch (err) {
-    //             reject('Error retrieving owner\'s users');
-    //         }
-    //     });
-    // }
+    static findUsersByEmail(email) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let usersData = await db.query(`SELECT * FROM users WHERE email = $1;`, [ email ]);
+                const users = usersData.rows.map(d => new User(d))
+                resolve (users);
+            } catch (err) {
+                reject('Error retrieving owner\'s users');
+            }
+        });
+    }
 
     static create(body){
         return new Promise (async (resolve, reject) => {

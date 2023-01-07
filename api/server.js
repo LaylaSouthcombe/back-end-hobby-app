@@ -7,11 +7,11 @@ server.use(express.json());
 
 const userRoutes = require('./routes/users')
 const listingRoutes = require('./routes/listings')
+const authRoutes = require('./routes/auth')
 
 server.use('/users', userRoutes)
 server.use('/listings', listingRoutes)
-
-// const port = process.env.PORT || 3000;
+server.use('/auth', authRoutes)
 
 // Root route
 server.get('/', (req, res) => res.send('Hello, world!'))
