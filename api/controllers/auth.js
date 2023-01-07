@@ -1,10 +1,25 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User')
 
-async function registerUser (req, res) { 
+
+async function hi(req, res) { 
     try {
+        console.log("hi")
+        res.status(201).json({msg: 'hi'});
+
+    } catch(err) {
+        res.status(500).json({err: "This email "});
+    }
+}
+    
+
+async function registerUser(req, res) { 
+    try {
+        console.log("req.body")
         const users = await User.findUsersByEmail(req.body.email)
+        console.log(users)
         if(!users.length){
+            console.log(req.body)
             const salt = await bcrypt.genSalt();
             const hashed = await bcrypt.hash(req.body.password, salt);
             console.log(hashed)
@@ -38,4 +53,4 @@ async function loginUser (req, res) {
     }
 }
 
-module.exports = {registerUser, loginUser}
+module.exports = {registerUser, loginUser, hi}
