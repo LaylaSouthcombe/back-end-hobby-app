@@ -6,7 +6,8 @@ CREATE TABLE users (
     second_name varchar(50) NOT NULL,
     password_digest varchar NOT NULL,
     email varchar(200) NOT NULL,
-    last_login date DEFAULT CURRENT_TIMESTAMP
+    last_login date DEFAULT CURRENT_TIMESTAMP,
+    is_active boolean DEFAULT TRUE
 );
 
 DROP TABLE IF EXISTS listings;
