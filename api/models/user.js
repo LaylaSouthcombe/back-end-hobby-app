@@ -8,6 +8,7 @@ class User {
         this.password_digest = data.password
         this.email = data.email
         this.last_login = data.last_login
+        this.is_active = data.is_active
     }
 
     static get all() {
@@ -22,7 +23,7 @@ class User {
         })
     }
 
-    static findById (id) {
+    static findById(id) {
         return new Promise (async (resolve, reject) => {
             try {
                 let userData = await db.query(`SELECT * FROM users WHERE id = $1;`, [ id ]);
@@ -61,7 +62,7 @@ class User {
     static update(id, body) {
         return new Promise (async (resolve, reject) => {
             try {
-                let updatedUserData = await db.query(`UPDATE users SET age = age + 1 WHERE id = $1 RETURNING *;`, [ id ]);
+                let updatedUserData = await db.query(`UPDATE users SET first_name = $2, second_name = $3, email = $4 WHERE id = $1 RETURNING *;`, [ id, body.first_name, body.second_name, body.email ]);
                 let updatedUser = new User(updatedUserData.rows[0]);
                 resolve (updatedUser);
             } catch (err) {
