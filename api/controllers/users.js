@@ -40,6 +40,16 @@ async function updateUser(req, res) {
     }
 }
 
+// users change active state route
+async function changeActiveState(req, res) {
+    try {
+        const updatedUser = await User.changeActiveState(req.params.id, req.body.action)
+        res.json({user: updatedUser})
+    } catch(err) {
+        res.status(500).json({err})
+    }
+}
+
 // delete user route
 async function deleteUser(req, res) {
     try {
@@ -52,4 +62,4 @@ async function deleteUser(req, res) {
 }
 
 
-module.exports = {showAllUsers, findUserById, createNewUser, updateUser, deleteUser};
+module.exports = {showAllUsers, findUserById, createNewUser, updateUser, deleteUser, changeActiveState};

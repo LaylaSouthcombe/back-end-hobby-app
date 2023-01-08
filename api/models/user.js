@@ -83,6 +83,23 @@ class User {
         })
     }
 
+    static async changeActiveState(userId, action){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let result
+                if(action === "deactivate"){
+                    result = await db.query(`UPDATE users SET is_active = $1 WHERE id = $2 RETURNING *;`, [ false, userId])
+                }
+                if(action === "restore"){
+                    result = await db.query(`UPDATE users SET is_active = $1 WHERE id = $2 RETURNING *;`, [ true, userId])
+                }
+                resolve(result.rows[0].last_login)
+            }catch(err){
+                reject("Error updating users is_active");
+            }
+        })
+    }
+
     destroy(){
         return new Promise(async(resolve, reject) => {
             try {
