@@ -109,12 +109,12 @@ static showLocationListings(location) {
     });
 }
 //not done
-static searchListings(id) {
+static searchListings(searchTerm) {
     return new Promise (async (resolve, reject) => {
         try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
+            let listingsData = await db.query(`SELECT * FROM listings WHERE title ILIKE '%${searchTerm}%' OR summary ILIKE '%${searchTerm}%' OR location ILIKE '%${searchTerm}%';`); 
+            const listings = listingsData.rows.map(d => new Listing(d))
+            resolve(listings);
         } catch (err) {
             reject('Listing not found');
         }
