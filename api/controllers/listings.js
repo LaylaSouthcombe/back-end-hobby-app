@@ -3,7 +3,7 @@ const Listing = require('../models/listing')
 //create new listing
 async function createListing(req, res) {
     try {
-        const listing = await Listing.create(req.body)
+        const listing = await Listing.create(req.params.id, req.body)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
@@ -22,7 +22,7 @@ async function editListing(req, res) {
 async function showAllListing(req, res) {
     try {
         const listing = await Listing.all
-        res.status(200).json({listing})
+        res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
     }
