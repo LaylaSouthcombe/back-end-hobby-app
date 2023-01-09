@@ -31,6 +31,17 @@ class Listing {
         })
     }
 
+    static async createNewListing(userId, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, location}){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let newListing = await db.query(`INSERT INTO listings (title, summary, price, open_to_swaps, category_id, subcategory_id, user_id, availability, delivery, postage, collection, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`, [ title, summary, price, open_to_swaps, category_id, subcategory_id, userId, availability, delivery, postage, collection, location])
+                resolve(newListing.rows[0])
+            }catch(err){
+                reject("Error creating new listing");
+            }
+        })
+    }
+
     static findById(id) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -43,5 +54,8 @@ class Listing {
         });
     }
 }
+
+// createListing, editListing, showAllListing, showListing, showUsersListing, showCategoryListing, showLocationListing, searchListing, showTrendingListing, showSuggestedListing
+
 
 module.exports = Listing;
