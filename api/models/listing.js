@@ -41,7 +41,90 @@ class Listing {
             }
         })
     }
-
+//not done
+    static editListing(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+                let listing = new Listing(listingData.rows[0]);
+                resolve (listing);
+            } catch (err) {
+                reject('Listing not found');
+            }
+        });
+    }
+//not done
+static showUsersListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
+//not done
+static showCategoryListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
+//not done
+static showLocationListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
+//not done
+static searchListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
+//not done
+static showTrendingListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
+//not done
+static showSuggestedListing(id) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+            let listing = new Listing(listingData.rows[0]);
+            resolve (listing);
+        } catch (err) {
+            reject('Listing not found');
+        }
+    });
+}
     static findById(id) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -55,7 +138,7 @@ class Listing {
     }
 }
 
-// createListing, editListing, showAllListing, showListing, showUsersListing, showCategoryListing, showLocationListing, searchListing, showTrendingListing, showSuggestedListing
+//  showCategoryListing, showLocationListing, searchListing, showTrendingListing, showSuggestedListing
 
 
 module.exports = Listing;
