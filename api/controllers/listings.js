@@ -3,6 +3,8 @@ const Listing = require('../models/listing')
 //create new listing
 async function createListing(req, res) {
     try {
+        console.log(req.params.id)
+        console.log(req.body)
         const listing = await Listing.create(req.params.id, req.body)
         res.status(200).json(listing)
     } catch (err) {
