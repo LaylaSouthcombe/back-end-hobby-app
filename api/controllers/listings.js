@@ -3,9 +3,9 @@ const Listing = require('../models/listing')
 //create new listing
 async function createListing(req, res) {
     try {
-        console.log(req.params.id)
+        console.log(req.headers.userid)
         console.log(req.body)
-        const listing = await Listing.create(req.params.id, req.body)
+        const listing = await Listing.createNewListing(req.headers.userid, req.body)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})

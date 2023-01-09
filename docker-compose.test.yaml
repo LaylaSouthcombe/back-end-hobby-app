@@ -1,0 +1,25 @@
+services:
+  api:
+    container_name: hobi_test_api
+    environment: 
+      - PGUSER=hobiadmin
+      - PGHOST=db
+      - PGPASSWORD=hobipass
+      - PGDATABASE=hobi_test
+      - PGPORT=5432
+      - NODE_ENV=test
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: hobi_test_db
+    volumes:
+      - "test_db:/var/lib/postgresql/data"
+    environment: 
+      - POSTGRES_DB=hobi_test
+      - POSTGRES_PASSWORD=hobipass
+volumes:
+  test_db:
+networks: 
+  default:
+    name: hobi_test

@@ -31,12 +31,12 @@ class Listing {
         })
     }
 
-    static async createNewListing(userId, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, location}){
+    static async createNewListing(userId, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users,location}){
         return new Promise (async (resolve, reject) => {
             try {
                 console.log(userId)
                 console.log(title)
-                let newListing = await db.query(`INSERT INTO listings (title, summary, price, open_to_swaps, category_id, subcategory_id, user_id, availability, delivery, postage, collection, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *;`, [ title, summary, price, open_to_swaps, category_id, subcategory_id, userId, availability, delivery, postage, collection, location])
+                let newListing = await db.query(`INSERT INTO listings (title, summary, price, open_to_swaps, category_id, subcategory_id, user_id, availability, delivery, postage, collection, favourited_users, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;`, [ title, summary, price, open_to_swaps, category_id, subcategory_id, userId, availability, delivery, postage, collection, favourited_users, location])
                 resolve(newListing.rows[0])
             }catch(err){
                 reject("Error creating new listing");
