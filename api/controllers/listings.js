@@ -3,8 +3,6 @@ const Listing = require('../models/listing')
 //create new listing
 async function createListing(req, res) {
     try {
-        console.log(req.headers.userid)
-        console.log(req.body)
         const listing = await Listing.createNewListing(req.headers.userid, req.body)
         res.status(200).json(listing)
     } catch (err) {
@@ -14,7 +12,8 @@ async function createListing(req, res) {
 //edit listing
 async function editListing(req, res) {
     try {
-        const listing = await Listing.update(req.body)
+        console.log(req.params)
+        const listing = await Listing.editListing(req.headers.userid, req.params.id, req.body)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})

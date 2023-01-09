@@ -34,8 +34,6 @@ class Listing {
     static async createNewListing(userId, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users,location}){
         return new Promise (async (resolve, reject) => {
             try {
-                console.log(userId)
-                console.log(title)
                 let newListing = await db.query(`INSERT INTO listings (title, summary, price, open_to_swaps, category_id, subcategory_id, user_id, availability, delivery, postage, collection, favourited_users, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;`, [ title, summary, price, open_to_swaps, category_id, subcategory_id, userId, availability, delivery, postage, collection, favourited_users, location])
                 resolve(newListing.rows[0])
             }catch(err){
@@ -44,14 +42,22 @@ class Listing {
         })
     }
 //not done
-    static editListing(id) {
+    static editListing(userId, id, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users, location}) {
         return new Promise (async (resolve, reject) => {
             try {
-                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-                let listing = new Listing(listingData.rows[0]);
-                resolve (listing);
+                console.log(id)
+                let listingToBeUpdated = await db.query('SELECT * FROM listings WHERE id = $1;', [id])
+                console.log(listingToBeUpdated.rows[0].user_id === parseInt(userId))
+                let updatedListing
+                //can only update listing if you are the owner
+                if(listingToBeUpdated.rows[0].user_id === parseInt(userId)){
+                    updatedListing = await db.query(`UPDATE listings SET title = $2, summary = $3, price = $4, open_to_swaps = $5, category_id = $6, subcategory_id = $7, availability = $8, delivery = $9, postage = $10, collection = $11, favourited_users = $12, location = $13 WHERE id = $1 RETURNING *;`, [ id, title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users,location ]); 
+                } else {
+                    throw new Error('Only the author of the listing can edit it')
+                }
+                resolve(updatedListing.rows[0]);
             } catch (err) {
-                reject('Listing not found');
+                reject('Listing could not be updated');
             }
         });
     }
