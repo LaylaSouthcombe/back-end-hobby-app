@@ -40,7 +40,7 @@ async function showListing(req, res) {
 // show users listings
 async function showUsersListing(req, res) {
     try {
-        const listing = await Listing.findUsersListings(parseInt(req.params.id))
+        const listing = await Listing.showUsersListing(req.params.id)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
@@ -49,7 +49,7 @@ async function showUsersListing(req, res) {
 //show listings for a category
 async function showCategoryListing(req, res) {
     try {
-        const listing = await Listing.findCategoryListings(req.body.category)
+        const listing = await Listing.showCategoryListings(req.body.category)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
@@ -58,7 +58,7 @@ async function showCategoryListing(req, res) {
 //show listings for a location
 async function showLocationListing(req, res) {
     try {
-        const listing = await Listing.findLocationListings(req.body.location)
+        const listing = await Listing.showLocationListings(req.body.location)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})

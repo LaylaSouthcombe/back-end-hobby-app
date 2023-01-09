@@ -61,15 +61,15 @@ class Listing {
             }
         });
     }
-//not done
-static showUsersListing(id) {
+//shows listings that a user owns
+static showUsersListing(userId) {
     return new Promise (async (resolve, reject) => {
         try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
+            let listingsData = await db.query(`SELECT * FROM listings WHERE user_id = $1;`, [ userId ]); 
+            const listings = listingsData.rows.map(d => new Listing(d))
+            resolve(listings);
         } catch (err) {
-            reject('Listing not found');
+            reject('Users listings not found');
         }
     });
 }
