@@ -75,12 +75,11 @@ static showUsersListings(userId) {
 static showCategoryListings(categoryId) {
     return new Promise (async (resolve, reject) => {
         try {
-            console.log|(categoryId)
             let listingsData = await db.query(`SELECT * FROM listings WHERE category_id = $1;`, [ categoryId ]); 
             const listings = listingsData.rows.map(d => new Listing(d))
             resolve(listings);
         } catch (err) {
-            reject('Listings not found');
+            reject('Listings for this category not found');
         }
     });
 }
@@ -92,19 +91,20 @@ static showSubcategoryListings(subcategoryId) {
             const listings = listingsData.rows.map(d => new Listing(d))
             resolve(listings);
         } catch (err) {
-            reject('Listings not found');
+            reject('Listings for this subcategory not found');
         }
     });
 }
-//not done
-static showLocationListings(id) {
+//shows listings that are in that location
+//update to be able to include postings nearby - Google maps API?
+static showLocationListings(location) {
     return new Promise (async (resolve, reject) => {
         try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
+            let listingsData = await db.query(`SELECT * FROM listings WHERE location = $1;`, [ location ]); 
+            const listings = listingsData.rows.map(d => new Listing(d))
+            resolve(listings);
         } catch (err) {
-            reject('Listing not found');
+            reject('Listings for this location not found');
         }
     });
 }
