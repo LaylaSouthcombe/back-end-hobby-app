@@ -45,9 +45,7 @@ class Listing {
     static editListing(userId, id, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users, location}) {
         return new Promise (async (resolve, reject) => {
             try {
-                console.log(id)
                 let listingToBeUpdated = await db.query('SELECT * FROM listings WHERE id = $1;', [id])
-                console.log(listingToBeUpdated.rows[0].user_id === parseInt(userId))
                 let updatedListing
                 //can only update listing if you are the owner
                 if(listingToBeUpdated.rows[0].user_id === parseInt(userId)){
@@ -62,7 +60,7 @@ class Listing {
         });
     }
 //shows listings that a user owns
-static showUsersListing(userId) {
+static showUsersListings(userId) {
     return new Promise (async (resolve, reject) => {
         try {
             let listingsData = await db.query(`SELECT * FROM listings WHERE user_id = $1;`, [ userId ]); 
@@ -73,8 +71,33 @@ static showUsersListing(userId) {
         }
     });
 }
+//shows listings that are in the category
+static showCategoryListings(categoryId) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            console.log|(categoryId)
+            let listingsData = await db.query(`SELECT * FROM listings WHERE category_id = $1;`, [ categoryId ]); 
+            const listings = listingsData.rows.map(d => new Listing(d))
+            resolve(listings);
+        } catch (err) {
+            reject('Listings not found');
+        }
+    });
+}
+//shows listings that are in the subcategory
+static showSubcategoryListings(subcategoryId) {
+    return new Promise (async (resolve, reject) => {
+        try {
+            let listingsData = await db.query(`SELECT * FROM listings WHERE subcategory_id = $1;`, [ subcategoryId ]); 
+            const listings = listingsData.rows.map(d => new Listing(d))
+            resolve(listings);
+        } catch (err) {
+            reject('Listings not found');
+        }
+    });
+}
 //not done
-static showCategoryListing(id) {
+static showLocationListings(id) {
     return new Promise (async (resolve, reject) => {
         try {
             let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
@@ -86,7 +109,7 @@ static showCategoryListing(id) {
     });
 }
 //not done
-static showLocationListing(id) {
+static searchListings(id) {
     return new Promise (async (resolve, reject) => {
         try {
             let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
@@ -98,7 +121,7 @@ static showLocationListing(id) {
     });
 }
 //not done
-static searchListing(id) {
+static showTrendingListings(id) {
     return new Promise (async (resolve, reject) => {
         try {
             let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
@@ -110,19 +133,7 @@ static searchListing(id) {
     });
 }
 //not done
-static showTrendingListing(id) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
-        } catch (err) {
-            reject('Listing not found');
-        }
-    });
-}
-//not done
-static showSuggestedListing(id) {
+static showSuggestedListings(id) {
     return new Promise (async (resolve, reject) => {
         try {
             let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 

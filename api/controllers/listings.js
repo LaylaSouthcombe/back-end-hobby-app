@@ -20,7 +20,7 @@ async function editListing(req, res) {
     }
 }
 // all listings show route
-async function showAllListing(req, res) {
+async function showAllListings(req, res) {
     try {
         const listing = await Listing.all
         res.status(200).json(listing)
@@ -29,7 +29,7 @@ async function showAllListing(req, res) {
     }
 }
 // listings show route
-async function showListing(req, res) {
+async function showListings(req, res) {
     try {
         const listing = await Listing.findById(parseInt(req.params.id))
         res.status(200).json(listing)
@@ -38,7 +38,7 @@ async function showListing(req, res) {
     }
 }
 // show users listings
-async function showUsersListing(req, res) {
+async function showUsersListings(req, res) {
     try {
         const listing = await Listing.showUsersListing(req.params.id)
         res.status(200).json(listing)
@@ -47,16 +47,25 @@ async function showUsersListing(req, res) {
     }
 }
 //show listings for a category
-async function showCategoryListing(req, res) {
+async function showCategoryListings(req, res) {
     try {
-        const listing = await Listing.showCategoryListings(req.body.category)
+        const listing = await Listing.showCategoryListings(req.body.category_id)
+        res.status(200).json(listing)
+    } catch (err) {
+        res.status(400).send({err})
+    }
+}
+//show listings for a subcategory
+async function showSubcategoryListings(req, res) {
+    try {
+        const listing = await Listing.showSubcategoryListings(req.body.subcategory_id)
         res.status(200).json(listing)
     } catch (err) {
         res.status(400).send({err})
     }
 }
 //show listings for a location
-async function showLocationListing(req, res) {
+async function showLocationListings(req, res) {
     try {
         const listing = await Listing.showLocationListings(req.body.location)
         res.status(200).json(listing)
@@ -65,7 +74,7 @@ async function showLocationListing(req, res) {
     }
 }
 //listing search results
-async function searchListing(req, res) {
+async function searchListings(req, res) {
     try {
         const listing = await Listing.searchListings(req.body.searchterm)
         res.status(200).json(listing)
@@ -74,7 +83,7 @@ async function searchListing(req, res) {
     }
 }
 //show trending listings
-async function showTrendingListing(req, res) {
+async function showTrendingListings(req, res) {
     try {
         const listing = await Listing.showTrendingListings()
         res.status(200).json(listing)
@@ -83,7 +92,7 @@ async function showTrendingListing(req, res) {
     }
 }
 //show suggested listings for a user
-async function showSuggestedListing(req, res) {
+async function showSuggestedListings(req, res) {
     try {
         const listing = await Listing.showSuggestedListings(req.params.id)
         res.status(200).json(listing)
@@ -92,4 +101,4 @@ async function showSuggestedListing(req, res) {
     }
 }
 
-module.exports = {createListing, editListing, showAllListing, showListing, showUsersListing, showCategoryListing, showLocationListing, searchListing, showTrendingListing, showSuggestedListing};
+module.exports = {createListing, editListing, showAllListings, showListings, showUsersListings, showCategoryListings, showSubcategoryListings,showLocationListings, searchListings, showTrendingListings, showSuggestedListings};
