@@ -29,3 +29,14 @@ CREATE TABLE listings (
     favourited_users varchar NOT NULL,
     location varchar(150) NOT NULL
 );
+
+DROP TABLE IF EXISTS interactions;
+
+CREATE TABLE interactions (
+    id serial PRIMARY KEY,
+    user_id int NOT NULL,
+    listing_id int NOT NULL,
+    watching boolean NOT NULL,
+    messaged boolean NOT NULL,
+    purchased boolean NOT NULL
+);
