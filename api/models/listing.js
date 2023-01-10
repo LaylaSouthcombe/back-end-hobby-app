@@ -18,7 +18,7 @@ class Listing {
         this.favourited_users = data.favourited_users
         this.location = data.location
     }
-
+    //gets all the listings
     static get all() {
         return new Promise (async (resolve, reject) => {
             try {
@@ -30,7 +30,7 @@ class Listing {
             }
         })
     }
-
+    //creates a new listing
     static async createNewListing(userId, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users,location}){
         return new Promise (async (resolve, reject) => {
             try {
@@ -41,7 +41,7 @@ class Listing {
             }
         })
     }
-    //not done
+    //edits a listing
     static editListing(userId, id, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users, location}) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -108,7 +108,7 @@ class Listing {
             }
         });
     }
-    //Route for search term
+    //shows listings that include the search term
     static searchListings(searchTerm) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -148,7 +148,7 @@ class Listing {
     static findById(id) {
         return new Promise (async (resolve, reject) => {
             try {
-                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1 LIMIT 1;`, [ id ]); 
                 let listing = new Listing(listingData.rows[0]);
                 resolve (listing);
             } catch (err) {
