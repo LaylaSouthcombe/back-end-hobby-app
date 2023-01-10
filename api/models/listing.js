@@ -41,7 +41,7 @@ class Listing {
             }
         })
     }
-//not done
+    //not done
     static editListing(userId, id, {title, summary, price, open_to_swaps, category_id, subcategory_id, availability, delivery, postage, collection, favourited_users, location}) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -59,91 +59,92 @@ class Listing {
             }
         });
     }
-//shows listings that a user owns
-static showUsersListings(userId) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingsData = await db.query(`SELECT * FROM listings WHERE user_id = $1;`, [ userId ]); 
-            const listings = listingsData.rows.map(d => new Listing(d))
-            resolve(listings);
-        } catch (err) {
-            reject('Users listings not found');
-        }
-    });
-}
-//shows listings that are in the category
-static showCategoryListings(categoryId) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingsData = await db.query(`SELECT * FROM listings WHERE category_id = $1;`, [ categoryId ]); 
-            const listings = listingsData.rows.map(d => new Listing(d))
-            resolve(listings);
-        } catch (err) {
-            reject('Listings for this category not found');
-        }
-    });
-}
-//shows listings that are in the subcategory
-static showSubcategoryListings(subcategoryId) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingsData = await db.query(`SELECT * FROM listings WHERE subcategory_id = $1;`, [ subcategoryId ]); 
-            const listings = listingsData.rows.map(d => new Listing(d))
-            resolve(listings);
-        } catch (err) {
-            reject('Listings for this subcategory not found');
-        }
-    });
-}
-//shows listings that are in that location
-//update to be able to include postings nearby - Google maps API?
-static showLocationListings(location) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingsData = await db.query(`SELECT * FROM listings WHERE location = $1;`, [ location ]); 
-            const listings = listingsData.rows.map(d => new Listing(d))
-            resolve(listings);
-        } catch (err) {
-            reject('Listings for this location not found');
-        }
-    });
-}
-//not done
-static searchListings(searchTerm) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingsData = await db.query(`SELECT * FROM listings WHERE title ILIKE '%${searchTerm}%' OR summary ILIKE '%${searchTerm}%' OR location ILIKE '%${searchTerm}%';`); 
-            const listings = listingsData.rows.map(d => new Listing(d))
-            resolve(listings);
-        } catch (err) {
-            reject('Listing not found');
-        }
-    });
-}
-//not done
-static showTrendingListings(id) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
-        } catch (err) {
-            reject('Listing not found');
-        }
-    });
-}
-//not done
-static showSuggestedListings(id) {
-    return new Promise (async (resolve, reject) => {
-        try {
-            let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
-            let listing = new Listing(listingData.rows[0]);
-            resolve (listing);
-        } catch (err) {
-            reject('Listing not found');
-        }
-    });
-}
+    //shows listings that a user owns
+    static showUsersListings(userId) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingsData = await db.query(`SELECT * FROM listings WHERE user_id = $1;`, [ userId ]); 
+                const listings = listingsData.rows.map(d => new Listing(d))
+                resolve(listings);
+            } catch (err) {
+                reject('Users listings not found');
+            }
+        });
+    }
+    //shows listings that are in the category
+    static showCategoryListings(categoryId) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingsData = await db.query(`SELECT * FROM listings WHERE category_id = $1;`, [ categoryId ]); 
+                const listings = listingsData.rows.map(d => new Listing(d))
+                resolve(listings);
+            } catch (err) {
+                reject('Listings for this category not found');
+            }
+        });
+    }
+    //shows listings that are in the subcategory
+    static showSubcategoryListings(subcategoryId) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingsData = await db.query(`SELECT * FROM listings WHERE subcategory_id = $1;`, [ subcategoryId ]); 
+                const listings = listingsData.rows.map(d => new Listing(d))
+                resolve(listings);
+            } catch (err) {
+                reject('Listings for this subcategory not found');
+            }
+        });
+    }
+    //shows listings that are in that location
+    //update to be able to include postings nearby - Google maps API?
+    static showLocationListings(location) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingsData = await db.query(`SELECT * FROM listings WHERE location = $1;`, [ location ]); 
+                const listings = listingsData.rows.map(d => new Listing(d))
+                resolve(listings);
+            } catch (err) {
+                reject('Listings for this location not found');
+            }
+        });
+    }
+    //Route for search term
+    static searchListings(searchTerm) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingsData = await db.query(`SELECT * FROM listings WHERE title ILIKE '%${searchTerm}%' OR summary ILIKE '%${searchTerm}%' OR location ILIKE '%${searchTerm}%';`); 
+                const listings = listingsData.rows.map(d => new Listing(d))
+                resolve(listings);
+            } catch (err) {
+                reject('Listing not found');
+            }
+        });
+    }
+    //not done - add in code to search for listings with highest views in last 3 days
+    static showTrendingListings(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+                let listing = new Listing(listingData.rows[0]);
+                resolve (listing);
+            } catch (err) {
+                reject('Listing not found');
+            }
+        });
+    }
+    //not done - add in code that finds similar posts to a users views, but if no views show random posts in top 100 viewed today
+    static showSuggestedListings(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let listingData = await db.query(`SELECT * FROM listings WHERE id = $1;`, [ id ]); 
+                let listing = new Listing(listingData.rows[0]);
+                resolve (listing);
+            } catch (err) {
+                reject('Listing not found');
+            }
+        });
+    }
+    //finds post with specific id
     static findById(id) {
         return new Promise (async (resolve, reject) => {
             try {
